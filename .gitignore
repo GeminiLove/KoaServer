@@ -1,0 +1,8 @@
+#忽略node_modules
+node_modules/*
+
+#忽略idea配置
+.idea/*
+
+#忽略个人记录文档
+*.txt
