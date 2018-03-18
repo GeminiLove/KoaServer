@@ -8,3 +8,10 @@ exports.mongoose = {
     enable: true,
     package: 'egg-mongoose',
 };
+
+/* 此处使用了socket.io */
+/*
+exports.io = {
+    enable: true,
+    package: 'egg-socket.io',
+};*/

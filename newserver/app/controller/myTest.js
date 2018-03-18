@@ -5,24 +5,26 @@ const Controller = require('egg').Controller;
 class TestController extends Controller {
 
     /* 放入测试数据 */
-    *pushtestinfo (){
-        yield this.ctx.model.User.save({userName: '林麟', passWord: '123'});
-        console.log('存放数据成功');
+    async pushtestinfo (){
+        console.log('进入数据记录');
+        const addData = new this.ctx.model.User({userName: '林麟', passWord: '123'});
+        await addData.save();
+        console.log('进入数据查询');
+        const result = await this.ctx.model.User.findOne({
+            userName: '林麟',
+        });
+        if (result) {
+            this.ctx.body = result.toString();
+        } else {
+            this.ctx.body = '并没有找到此数据';
+        }
     }
 
-    *index() {
-        console.log('进入testUser');
-         this.pushtestinfo;
-         this.ctx.body =  this.ctx.model.User.findOne({userName: '林麟'}, (error, doc) => {
-             if (error) {
-                 console.log('查无此数据');
-                 return '查无此数据';
-             } else {
-                 console.log('查到了数据');
-                 return doc;
-             }
-         });
-        //this.ctx.body = 'Fuck test page';
+    async getTestData() {
+        console.log('进入getTestData');
+        console.log('进行request和response的设置');
+        console.log('request携带的参数 = ', this.ctx.request.query.id);
+        console.log('reqeust携带的参数 name = ', this.ctx.request.query.name);
     }
 }
 
