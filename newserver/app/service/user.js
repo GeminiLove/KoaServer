@@ -7,11 +7,23 @@ module.exports = app => {
          * @param request
          * @returns {Promise<*>}
          */
-        async create (request){
-            let result = await this.ctx.model
-                .User
-                .create(request);
-            return result;
+        async createUser (userInfo){
+            console.log('进入创建用户模块');
+            try {
+                const {userName, passWord} = userInfo;
+                const showresult = await this.ctx.model
+                    .User
+                    .findOne({userName: userName});
+                const createresult = await this.ctx.model
+                    .User({ userName: userName, passWord: passWord })
+                    .save()
+                console.log('showresult = ', showresult);
+                console.log('createresult = ', createresult);
+                return createresult;
+
+            } catch (error) {
+                console.log('创建用户模块出现问题 = ', error);
+            }
         }
 
         /**
@@ -20,11 +32,20 @@ module.exports = app => {
          * @param request
          * @returns {Promise<*>}
          */
-        async update (id, request) {
-            let result = await this.ctx.model
+        async updateUser (userInfo, newuserInfo) {
+           /* let result = await this.ctx.model
                 .User
                 .findOneAndUpdate({'_id': Object(id)},{$set: request});
-            return result;
+            return result;*/
+           console.log('进入更新用户信息模块');
+           const { model } = this.ctx.model;
+           try{
+               const result = await model
+                   .User
+                   .findOneAndUpdate({'id': userInfo.id}, {$set: newuserInfo});
+           } catch (error) {
+               console.log('用户信息更新模块出现问题');
+           }
         }
 
         /**
@@ -32,11 +53,27 @@ module.exports = app => {
          * @param id
          * @returns {Promise<*>}
          */
-        async show (id) {
-            let userInfo = await this.ctx.model
+        async showUser (userInfo) {
+            const userInfo = await this.ctx.model
                 .User
-                .find({'id': Object(id)});
+                .find({'id': userInfo.id});
             return userInfo;
+        }
+
+        /**
+         * 测试用方法： 用来进行数据库数据查看
+         */
+        async showAll () {
+            const { model } = this.ctx;
+            try{
+                const allUserInfo = await model
+                    .User
+                    .findAll();
+                return allUserInfo;
+            } catch (error) {
+                console.log('showAll的UserInfo的service出现问题');
+            }
+            return result;
         }
 
     }

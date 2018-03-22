@@ -9,6 +9,8 @@ exports.mongoose = {
     package: 'egg-mongoose',
 };
 
+
+
 /* 此处使用了socket.io */
 /*
 exports.io = {

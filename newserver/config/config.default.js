@@ -22,6 +22,11 @@ module.exports = appInfo => {
         credentials: true,
     }
 
+    config.mongoose = {
+        url: 'mongodb://127.0.0.1:27017/example',
+        options: {},
+    }
+
     return config;
 };
 
@@ -53,3 +58,9 @@ exports.io = {
         port: 6379
     }
 };
+
+
+/*
+exports.development = {
+    reloadPattern: ['**'],
+};*/

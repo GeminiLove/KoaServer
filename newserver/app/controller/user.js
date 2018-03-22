@@ -14,16 +14,31 @@ class UserController extends Controller {
         }
     }
 
-    async show () {
-        console.log('进入用户显示模块');
+    async register() {
+        console.log('进入用户注册的模块');
+        const { request, response, service } = this.ctx;
+        // const { userName, passWord } = request.body;
+        const { userName, passWord } = request.query;
+        console.log('获取的用户userName = ', userName, '获取的用户密码 = ', passWord);
+        const result = service.user.createUser({ userName, passWord });
     }
 
-    async register () {
-        console.log('进入用户申请模块');
+    async show () {
+        console.log('进入用户显示模块');
+        const { request, response, service } = this.ctx;
+        const userId = request.query.userId;
+        const result = await service.user.show(userId);
+        console.log('获取的用户id = ', userId);
+        console.log('获取的result = ', result);
+    }
+
+    async showAll () {
+        console.log('查询数据库中的数据');
+        this.ctx.response.body = this.ctx.service.user.showAll();
     }
 
     async update () {
-        console.log('进入用户信息更细模块');
+        console.log('进入用户信息模块');
     }
 }
 
