@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "egg": "^2.2.1",
+    "egg-cors": "^2.0.0",
     "egg-mongoose": "^2.2.0",
     "egg-scripts": "^2.5.1",
     "egg-socket.io": "^4.0.7"
@@ -23,7 +24,7 @@
     "node": ">=8.9.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --port=9000 --title=egg-server-showcase",
+    "start": "egg-scripts start --daemon --port=7001 --title=Dva_project_servier",
     "stop": "egg-scripts stop",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
