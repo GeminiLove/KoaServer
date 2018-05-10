@@ -36,9 +36,18 @@ class WorkerController extends Controller {
         }
     }
 
-    async showPageWorker(){
+    async showWorkerListIndex () {
         const { request, response, service } = this.ctx;
-        console.log('进入分页展示的功能模块');
+        const { pageNumber } = request.body;
+        console.log('------- 获取的pageNumber = ', pageNumber);
+        const result = await service
+            .worker
+            .showWorkerListIndex(pageNumber);
+        if (result) {
+            response.body = { mystatus: 1, msg: '主页找到了工作列表', indexWorkerList: result};
+        } else {
+            response.body = { mystatus: 0, msg: '主页的工作列表实现失败' };
+        }
     }
 
     async showWorkerListByUser() {

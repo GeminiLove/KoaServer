@@ -11,7 +11,10 @@ module.exports = app => {
         },
         seek_title: { type: String },
         seek_content: { type: String, default: null },
-        money: { type: Number, default: 0 },
+        money: { type: Array, default: [0,0] },
+        worker_tags: { type: Array, default: [] },
+        worker_education: { type: String, default: '' },
+        worker_experision: { type: String, default: '' },
         publish_time: { type: Number, default: new Date().getTime() }
     });
 

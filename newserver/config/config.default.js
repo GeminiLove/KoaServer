@@ -31,7 +31,16 @@ module.exports = appInfo => {
             user: 'pr_linlin',
             pass: 'wojiaolinda',
         },
-    }
+    };
+
+    config.io = {
+        namespace: {
+            '/': {
+                connectionMiddleware: ['auth'],
+                packetMiddleware: ['filter'],
+            }
+        }
+    };
 
     return config;
 };

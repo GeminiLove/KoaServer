@@ -6,7 +6,11 @@ module.exports = app => {
             console.log('进入创建工作的service, 传递过来的参数 = ', workerInfo);
             const { request, response, model } = this.ctx;
             const result = await model
-                .Worker({...workerInfo})
+                .Worker({...workerInfo,
+                    worker_tags: workerInfo.workerTags,
+                    worker_education: workerInfo.choosedEdu,
+                    worker_experision: workerInfo.choosedWorkerExp,
+                })
                 .save();
             if (result) {
                 return true;
@@ -15,8 +19,17 @@ module.exports = app => {
             }
         }
 
-        async showPageWorker(workerInfo) {
-            console.log('进入分页查询的模块');
+        async showWorkerListIndex(pageNumber) {
+            const { model } = this.ctx;
+            const result = await model
+                .Worker
+                .find({})
+                .populate('userId')//联合查询的关键
+                .sort('publish_time')
+                .limit(6)
+                .skip(pageNumber * 6);
+            console.log('在主页工作列表的service的主页 = ', result);
+            return result;
         }
 
         async showWorkerListByUser(workerInfo) {
@@ -33,7 +46,7 @@ module.exports = app => {
             const { model } = this.ctx;
             const result = await model
                 .Worker
-                .find({ userId: wrkerInfo.userId });
+                .find({ userId: wrkerInfo.userId })['doc'];
             return result;
         }
 

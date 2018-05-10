@@ -7,6 +7,8 @@ class UserController extends Controller {
         console.log('进入用户登录模块');
         const { request, response, service } = this.ctx;
         try {
+            console.log('------- 进入登录模块的requeest = ', request);
+            console.log('----------- 进入登录模块的request的body = ', request.body);
             const {username, password} = request.body;
             console.log('获取登录模块的必要信息， userName = ',username, '  passWord = ',password);
             const result = await service.user.loginUser({ userName: username, passWord: password });
